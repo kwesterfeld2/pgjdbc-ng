@@ -97,6 +97,30 @@ public class SQLTextTests {
       "--\n--",
       "--\n--",
     },
+    new String[] {
+      "PREPARE test_plan AS SELECT hashtext($1)",
+      "PREPARE test_plan AS SELECT hashtext($1)",
+    },
+    new String[] {
+      "PREPARE test_plan AS SELECT hashtext($$foo$$)",
+      "PREPARE test_plan AS SELECT hashtext($$foo$$)",
+    },
+    new String[] {
+      "PREPARE test_plan AS SELECT hashtext($$fo;o$$)",
+      "PREPARE test_plan AS SELECT hashtext($$fo;o$$)",
+    },
+    new String[] {
+      "select * from flatten('{\"a\":1,\"b\":2}', $ as root) as f",
+      "select * from flatten('{\"a\":1,\"b\":2}', $ as root) as f",
+    },
+    new String[] {
+      "call help ( $$ { me } $$ )",
+      "call help ( $$ { me } $$ )",
+    },
+    new String[] {
+      "call help ( $delim$ { me } $delim$ )",
+      "call help ( $delim$ { me } $delim$ )",
+    },
   };
 
   /**

@@ -330,6 +330,12 @@ public class SQLText {
       }
     } while (++ndx < sql.length());
 
+    // Treat as a grammar piece of only one char if within paren expression
+    if (parent instanceof ParenGroupNode) {
+        parent.add(new GrammarPiece(sql.substring(start, start + 1), start));
+        return start + 1;
+    }
+
     // Just treat as a grammar piece
     parent.add(new GrammarPiece(sql.substring(start, ndx), start));
     return ndx;
